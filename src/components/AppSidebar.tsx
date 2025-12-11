@@ -1,4 +1,4 @@
-import { Home, User, MessageSquare, Video, LogOut } from "lucide-react";
+import { Home, User, MessageSquare, Video } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -12,12 +12,10 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useAuth } from "@/contexts/AuthContext";
-import { Button } from "./ui/button";
+
 
 const menuItems = [
   { title: "Home", url: "/", icon: Home },
-  { title: "Profile", url: "/profile", icon: User },
   { title: "Chatbot", url: "/chatbot", icon: MessageSquare },
   { title: "Interview", url: "/interview", icon: Video },
 ];
@@ -26,7 +24,6 @@ export function AppSidebar() {
   const { open } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
-  const { isAuthenticated, logout } = useAuth();
 
   const isActive = (path: string) => {
     if (path === "/") return currentPath === "/";
@@ -67,14 +64,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      {isAuthenticated && (
-        <div className="flex items-center justify-center p-4 border-t border-sidebar-border">
-          <Button onClick={logout} variant="ghost" className="w-full">
-            <LogOut className="h-5 w-5" />
-            {open && <span className="ml-2">Sign Out</span>}
-          </Button>
-        </div>
-      )}
+      
     </Sidebar>
   );
 }
